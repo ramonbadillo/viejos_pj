@@ -1,5 +1,7 @@
-viejos_pj
+Proyecto Final de Validación y Verificación SQA
 =========
-*Hanamishi*
-*Ramon*
+* *Hanamishi*
+
+* *Ramon*
+
 proyecto final del viejo
