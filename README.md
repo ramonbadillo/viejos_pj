@@ -1,5 +1,5 @@
 viejos_pj
 =========
-Hanamishi
-Ramon
+*Hanamishi*
+*Ramon*
 proyecto final del viejo
