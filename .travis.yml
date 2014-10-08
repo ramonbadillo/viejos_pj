@@ -3,12 +3,3 @@ python:
   - "2.7"
 # command to install dependencies
 install: "pip install -r requirements.txt"
-before_script: 
-#  - "flake8 --ignore=F403, E501 app tests "
-#  - coverage erase
-# command to run tests
-script: 
-#  - lettuce tests/
-#  - coverage run --omit='*lettuce*,*fuzzywuzzy*' tests/features/steps.py 
-#  - coverage report -m
-#  - nosetests --with-doctest --with-coverage -s app
