@@ -19,3 +19,12 @@ class Appointment(Base):
     allday = Column(Boolean, default=False)
     location = Column(String(255))
     description = Column(Text)
+
+    @property
+    def duration(self):
+    delta = self.end - self.start
+    return delta.days * 24 * 60 * 60 + delta.seconds
+
+    def __repr__(self):
+    return (u'<{self.__class__.__name__}: {self.id}>'
+            .format(self=self))
