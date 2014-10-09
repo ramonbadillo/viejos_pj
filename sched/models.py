@@ -22,9 +22,11 @@ class Appointment(Base):
 
     @property
     def duration(self):
-    delta = self.end - self.start
-    return delta.days * 24 * 60 * 60 + delta.seconds
+        delta = self.end - self.start
+        return delta.days * 24 * 60 * 60 + delta.seconds
 
     def __repr__(self):
-    return (u'<{self.__class__.__name__}: {self.id}>'
-            .format(self=self))
+        return ('<{self.__class__.__name__}: {self.id}>'.format(self=self))
+
+if __name__ == '__main__':
+    print "si jala"
