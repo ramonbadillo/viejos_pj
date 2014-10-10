@@ -6,8 +6,13 @@ from forms import AppointmentForm
 from models import Base, Appointment
 
 
+
+
+
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sched.db'
+
 # Use Flask-SQLAlchemy for its engine and session
 # configuration. Load the extension, giving it the app object,
 # and override its default Model class with the pure
@@ -24,6 +29,7 @@ def appointment_list():
              .order_by(Appointment.start.asc()).all())
     return render_template('appointment/index.html',
                            appts=appts)
+
 
 
 @app.route('/')
@@ -78,4 +84,4 @@ def appointment_delete(appointment_id):
     return 'borrar'
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
