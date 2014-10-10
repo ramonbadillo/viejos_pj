@@ -3,7 +3,7 @@ from sqlalchemy import Boolean, Column
 from sqlalchemy import DateTime, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 
-from sqlalchemy.orm import synonym
+
 
 
 
