@@ -30,3 +30,9 @@
  </div>
 </div>
 {% endblock main %}
+
+{% if request.endpoint.endswith('edit') %}
+ {% set title = 'Edit Appointment' %}
+{% else %}
+ {% set title = 'Add Appointment' %}
+{% endif %}

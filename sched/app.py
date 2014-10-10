@@ -6,7 +6,6 @@ from forms import AppointmentForm
 from models import Base, Appointment
 
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sched.db'
 # Use Flask-SQLAlchemy for its engine and session
@@ -16,20 +15,27 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sched.db'
 db = SQLAlchemy(app)
 db.Model = Base
 
+
 @app.route('/appointments/')
 def appointment_list():
     return 'Listing of all appointments we have.'
-    
+
+
 @app.route('/')
 def index():
- return render_template('index.html')
+    return render_template('index.html')
+
 
 @app.route('/appointments/<int:appointment_id>/')
 def appointment_detail(appointment_id):
- edit_url = url_for('appointment_edit',
- appointment_id=appointment_id)
- # Return the URL string just for demonstration.
- return edit_url
+    """Provide HTML page with a given appointment."""
+    # Query: get Appointment object by ID.
+    appt = db.session.query(Appointment).get(appointment_id)
+    if appt is None:
+        # Abort with Not Found.
+        abort(404)
+    return render_template('appointment/detail.html', appt=appt)
+
 
 @app.route('/appointments/create/', methods=['GET', 'POST'])
 def appointment_create():
@@ -46,10 +52,25 @@ def appointment_create():
     return render_template('appointment/edit.html', form=form)
 
 
+@app.route('/appointments/<int:appointment_id>/edit/', methods=['GET', 'POST'])
+def appointment_edit(appointment_id):
+    """Provide HTML form to edit a given appointment."""
+    appt = db.session.query(Appointment).get(appointment_id)
+    if appt is None:
+        abort(404)
+    form = AppointmentForm(request.form, appt)
+    if request.method == 'POST' and form.validate():
+        form.populate_obj(appt)
+        db.session.commit()
+        # Success. Send the user back to the detail view.
+        return redirect(url_for('appointment_detail', appointment_id=appt.id))
+    return render_template('appointment/edit.html', form=form)
+
+
 @app.route(
     '/appointments/<int:appointment_id>/delete/', methods=['DELETE'])
 def appointment_delete(appointment_id):
-	return 'borrar'
+    return 'borrar'
 
 if __name__ == '__main__':
-	app.run()
+    app.run()
