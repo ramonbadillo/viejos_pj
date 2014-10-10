@@ -10,5 +10,3 @@ class AppointmentForm(Form):
     allday = BooleanField('All Day')
     location = TextField('Location', [Length(max=255)])
     description = TextAreaField('Description')
-
-

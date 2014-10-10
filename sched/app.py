@@ -18,7 +18,12 @@ db.Model = Base
 
 @app.route('/appointments/')
 def appointment_list():
-    return 'Listing of all appointments we have.'
+    """Provide HTML listing of all appointments."""
+    # Query: Get all Appointment objects, sorted by date.
+    appts = (db.session.query(Appointment)
+             .order_by(Appointment.start.asc()).all())
+    return render_template('appointment/index.html',
+                           appts=appts)
 
 
 @app.route('/')
