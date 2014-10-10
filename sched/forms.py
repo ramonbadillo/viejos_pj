@@ -12,8 +12,3 @@ class AppointmentForm(Form):
     description = TextAreaField('Description')
 
 
-if __name__ == '__main__':
-	form = AppointmentForm()
-	print('Here is how a form field displays:')
-	print(form.title.label)
-	print(form.title)

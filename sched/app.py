@@ -1,7 +1,11 @@
 from flask import Flask
-from flask import url_for
+from flask import abort, jsonify, redirect, render_template, request, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
-from models import Base
+
+from forms import AppointmentForm
+from models import Base, Appointment
+
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sched.db'
@@ -15,7 +19,10 @@ db.Model = Base
 @app.route('/appointments/')
 def appointment_list():
     return 'Listing of all appointments we have.'
-
+    
+@app.route('/')
+def index():
+ return render_template('index.html')
 
 @app.route('/appointments/<int:appointment_id>/')
 def appointment_detail(appointment_id):
@@ -24,11 +31,19 @@ def appointment_detail(appointment_id):
  # Return the URL string just for demonstration.
  return edit_url
 
-@app.route(
-    '/appointments/create/',
-    methods=['GET', 'POST'])
+@app.route('/appointments/create/', methods=['GET', 'POST'])
 def appointment_create():
-    return 'Form to create a new appointment.'
+    """Provide HTML form to create a new appointment."""
+    form = AppointmentForm(request.form)
+    if request.method == 'POST' and form.validate():
+        appt = Appointment()
+        form.populate_obj(appt)
+        db.session.add(appt)
+        db.session.commit()
+        # Success. Send user back to full appointment list.
+        return redirect(url_for('appointment_list'))
+    # Either first load or validation error at this point.
+    return render_template('appointment/edit.html', form=form)
 
 
 @app.route(
