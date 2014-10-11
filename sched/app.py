@@ -2,10 +2,8 @@ from flask import Flask
 from flask import abort, jsonify, redirect, render_template, request, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 
-from forms import AppointmentForm
-from models import Base, Appointment
-
-
+from .forms import AppointmentForm
+from .models import Base, Appointment
 
 
 app = Flask(__name__)
@@ -27,7 +25,6 @@ def appointment_list():
              .order_by(Appointment.start.asc()).all())
     return render_template('appointment/index.html',
                            appts=appts)
-
 
 
 @app.route('/')
@@ -81,13 +78,15 @@ def appointment_edit(appointment_id):
 def appointment_delete(appointment_id):
     return 'borrar'
 
+
 @app.errorhandler(404)
 def error_not_found(error):
     return render_template('error/not_found.html'), 404
 
+
 @app.errorhandler(405)
-def error_not_found(error):
+def error_not_allowed(error):
     return render_template('error/not_allowed.html'), 405
-    
+
 if __name__ == '__main__':
     app.run(debug=True)
