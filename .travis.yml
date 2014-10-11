@@ -5,10 +5,10 @@ python:
 install: "pip install -r requirements.txt"
 # command to run tests
 before_script:
-#- "flake8 --ignore=F403,E501 tests"
+- "flake8 --ignore=F403,E501 sched"
 script:
   - coverage run sched/app.py  
 #  - lettuce tests
-#  - nosetests --with-doctest --with-coverage -s tests/features/app
+  - nosetests --with-doctest --with-coverage -s sched/app.py
 after_script:
-#  - coverage report
+  - coverage report
