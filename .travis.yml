@@ -7,8 +7,9 @@ install: "pip install -r requirements.txt"
 before_script:
 - "flake8 --ignore=F403,E501 sched"
 script:
-  - coverage run sched/app.py  
+#  - coverage run sched/app.py  
 #  - lettuce tests
-  - nosetests --with-doctest --with-coverage -s sched/app.py
+#  - nosetests --with-doctest --with-coverage -s sched
+  - python manage.py runserver
 after_script:
-  - coverage report
+#  - coverage report
