@@ -8,8 +8,6 @@ from models import Base, Appointment
 
 
 
-
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sched.db'
 
@@ -83,5 +81,13 @@ def appointment_edit(appointment_id):
 def appointment_delete(appointment_id):
     return 'borrar'
 
+@app.errorhandler(404)
+def error_not_found(error):
+    return render_template('error/not_found.html'), 404
+
+@app.errorhandler(405)
+def error_not_found(error):
+    return render_template('error/not_allowed.html'), 405
+    
 if __name__ == '__main__':
     app.run(debug=True)
