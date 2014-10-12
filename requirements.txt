@@ -1,6 +1,7 @@
 Flask
 Flask-Script
 Flask-SQLAlchemy
+Flask-Login
 WTForms
 lettuce
 flake8
