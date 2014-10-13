@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     session.add(appt)
     session.commit()
-    
+
     now = datetime.now()
     appt = Appointment(
         title='New appointment2', start=now,
