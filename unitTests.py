@@ -1,5 +1,5 @@
 import unittest
-# import json
+import json
 import sched.app as app
 import sched.models as models
 import sched.forms as forms
@@ -117,5 +117,119 @@ class modelsTest(unittest.TestCase):
             app.db.session.query, "hola@adios.com", "12345")
         self.assertNotEqual(user, None)
         self.assertNotEqual(authenticate, False)
+
+
+class appTests(unittest.TestCase):
+
+    def setUp(self):
+        self.appointmentT = app.app.test_client()
+
+    def appoitmentList(self):
+        response = self.appointmentT.get("/appointments")
+        self.assertEquals(response.status_code, 301)
+        assert 'Redirecting' in response.data
+
+    def login(self):
+        response = self.appointmentT.get("/login")
+        self.assertEquals(response.status_code, 200)
+        assert 'Log user' in response.data
+        response = self.appointmentT.post('login', data=dict(
+            username='hola@adios.com', password='12345'),
+            follow_redirects=True)
+        self.assertEquals(response.status_code, 200)
+
+    def login2(self):
+        response = self.appointmentT.post('/login/', data=dict(
+            username="adios@hola.com", password='12346'),
+            follow_redirects=True)
+        self.assertEquals(response.status_code, 200)
+
+    def logout(self):
+        response = self.appointmentT.get("/logout/")
+        self.assertEquals(response.status_code, 302)
+        assert 'Redirecting' in response.data
+
+    def appoitmentDetail(self):
+        response = self.appointmentT.post('/login/', data=dict(
+            username='hola@adios.com', password='12345'),
+            follow_redirects=True)
+        response = self.appointmentT.get('/appointments/1/')
+        self.assertEquals(response.status_code, 200)
+        assert "New appointment" in response.data
+
+    def falseAppointment(self):
+        response = self.appointmentT.post('/login/', data=dict(
+            username='hola@adios.com', password='12345'),
+            follow_redirects=True)
+        response = self.appointmentT.get('/appointments/0/')
+        self.assertEquals(response.status_code, 404)
+        assert "Not Found" in response.data
+
+    def appoitmentEdit(self):
+        response = self.appointmentT.post('/login/', data=dict(
+            username='hola@adios.com', password='12345'),
+            follow_redirects=True)
+        response = self.appointmentT.get('/appointments/1/edit')
+        self.assertEquals(response.status_code, 200)
+        assert "Edit appointment" in response.data
+
+        response = self.appointmentT.post('/appointments/1/edit/', data=dict(
+            title="New appointment", start="2014-01-23 12:00:00",
+            end="2014-01-23 23:00:00", location="CIMAT",
+            description="Fiesta"), follow_redirects=True)
+        self.assertEquals(response.status_code, 200)
+        assert "New appointment" in response.data
+
+    def falseAppointmentEdit(self):
+        response = self.appointmentT.post('/login/', data=dict(
+            username='hola@adios.com', password='12345'),
+            follow_redirects=True)
+        response = self.appointmentT.get('/appointments/0/edit/')
+        self.assertEquals(response.status_code, 404)
+        assert "Not Found" in response.data
+
+    def appoitmentCreate(self):
+        response = self.appointmentT.post('/login/', data=dict(
+            username='hola@adios.com', password='12345'),
+            follow_redirects=True)
+        response = self.appointmentT.get('/appointments/create/')
+        self.assertEquals(response.status_code, 200)
+        assert "Add appointment" in response.data
+
+        response = self.appointmentT.post('/appointments/create/', data=dict(
+            title="New appointment", start="2014-01-23 12:00:00",
+            end="2014-01-23 23:00:00", location="CIMAT",
+            description="Fiesta"), follow_redirects=True)
+        self.assertEquals(response.status_code, 200)
+        assert "New appointment" in response.data
+
+    def appoitmentDelete(self):
+        response = self.appointmentT.post('/login/', data=dict(
+            username='hola@adios.com', password='12345'),
+            follow_redirects=True)
+        response = self.appointmentT.get('/appointments/1/delete/')
+        self.assertEquals(response.status_code, 405)
+        assert "Not Allowed" in response.data
+
+        response = self.appointmentT.delete('/appointments/3/delete/',
+                                            follow_redirects=True)
+        self.assertEquals(response.status_code, 200)
+        self.assertEqual(json.loads(response.data), {'status': 'OK'})
+
+        response = self.appt.delete('/appointments/666/delete/',
+                                    follow_redirects=True)
+        self.assertEquals(response.status_code, 404)
+        assert "Not Found" in response.data
+
+    def index(self):
+        response = self.appointmentT.post('/login/', data=dict(
+            username='email@cimat.mx', password='thepassword'),
+            follow_redirects=True)
+
+        response = self.appointmentT.get('/')
+        self.assertEquals(response.status_code, 200)
+        assert "Appointment scheduler" in response.data
+
+
 if __name__ == '__main__':
     unittest.main()
