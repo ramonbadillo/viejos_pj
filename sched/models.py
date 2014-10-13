@@ -116,3 +116,12 @@ if __name__ == "__main__":
 
     session.add(appt)
     session.commit()
+    
+    now = datetime.now()
+    appt = Appointment(
+        title='New appointment2', start=now,
+        end=now + timedelta(seconds=1800),
+        allday=False, location='the office', description='test', user_id=1)
+
+    session.add(appt)
+    session.commit()
