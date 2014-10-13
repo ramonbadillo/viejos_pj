@@ -17,15 +17,15 @@ class filterTests(unittest.TestCase):
     def testDatetimeWithoutHour(self):
         dat = date(2014, 1, 23)
         result = filters.do_datetime(dat)
-        self.assertEqual(result, '2014-01-23 - Thursday')
+        self.assertEqual(result, '2014-01-23 - Thursday at 12:00am')
 
     def testDatetimeWithHour(self):
         date = datetime(2014, 1, 23, 9, 00, 00)
         result = filters.do_datetime(date)
-        self.assertEqual((result, '2014-01-23 - Thursday at 9:00am'))
+        self.assertEqual(result, '2014-01-23 - Thursday at 9:00am')
 
     def testDateEmpty(self):
-        result = filters.date(None)
+        result = filters.do_date(None)
         self.assertEqual(result, '')
 
     def testDateNotEmpty(self):
@@ -98,7 +98,7 @@ class modelsTest(unittest.TestCase):
     def testUserPassword(self):
         user = models.User(name="Viejo", email="adios@hola.com")
         user._set_password("12346")
-        assert "64321" in user._get_password()
+        assert "sha1" in user._get_password()
         self.assertNotEqual(user._get_password(), "12346")
         self.assertEqual(True, user.check_password("12346"))
 
@@ -130,7 +130,7 @@ class appTests(unittest.TestCase):
         assert 'Redirecting' in response.data
 
     def testLogin(self):
-        response = self.appointmentT.get("/login")
+        response = self.appointmentT.get("/login/")
         self.assertEquals(response.status_code, 200)
         assert 'Log user' in response.data
         response = self.appointmentT.post('login', data=dict(
@@ -169,7 +169,7 @@ class appTests(unittest.TestCase):
         response = self.appointmentT.post('/login/', data=dict(
             username='hola@adios.com', password='12345'),
             follow_redirects=True)
-        response = self.appointmentT.get('/appointments/1/edit')
+        response = self.appointmentT.get('/appointments/1/edit/')
         self.assertEquals(response.status_code, 200)
         assert "Edit appointment" in response.data
 
@@ -194,7 +194,7 @@ class appTests(unittest.TestCase):
             follow_redirects=True)
         response = self.appointmentT.get('/appointments/create/')
         self.assertEquals(response.status_code, 200)
-        assert "Add appointment" in response.data
+        assert "Add Appointment" in response.data
 
         response = self.appointmentT.post('/appointments/create/', data=dict(
             title="New appointment", start="2014-01-23 12:00:00",
@@ -211,7 +211,7 @@ class appTests(unittest.TestCase):
         self.assertEquals(response.status_code, 405)
         assert "Not Allowed" in response.data
 
-        response = self.appointmentT.delete('/appointments/3/delete/',
+        response = self.appointmentT.delete('/appointments/1/delete/',
                                             follow_redirects=True)
         self.assertEquals(response.status_code, 200)
         self.assertEqual(json.loads(response.data), {'status': 'OK'})
