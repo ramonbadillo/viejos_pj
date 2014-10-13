@@ -155,7 +155,7 @@ class appTests(unittest.TestCase):
             follow_redirects=True)
         response = self.appointmentT.get('/appointments/1/')
         self.assertEquals(response.status_code, 200)
-        assert "New appointment" in response.data
+        assert "New Appointment" in response.data
 
     def testFalseAppointment(self):
         response = self.appointmentT.post('/login/', data=dict(
@@ -171,7 +171,7 @@ class appTests(unittest.TestCase):
             follow_redirects=True)
         response = self.appointmentT.get('/appointments/1/edit/')
         self.assertEquals(response.status_code, 200)
-        assert "Edit appointment" in response.data
+        assert "Edit Appointment" in response.data
 
         response = self.appointmentT.post('/appointments/1/edit/', data=dict(
             title="New appointment", start="2014-01-23 12:00:00",
@@ -216,7 +216,7 @@ class appTests(unittest.TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertEqual(json.loads(response.data), {'status': 'OK'})
 
-        response = self.appt.delete('/appointments/666/delete/',
+        response = self.appointmentT.delete('/appointments/666/delete/',
                                     follow_redirects=True)
         self.assertEquals(response.status_code, 404)
         assert "Not Found" in response.data
