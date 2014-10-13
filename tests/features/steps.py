@@ -22,8 +22,8 @@ def find_field_by_class(browser, attribute):
     return elems[0] if elems else False
 
 
-@step('I go to "([^"]*)"')
-def given_i_go_to_url(step, url):
+@step('the URL "([^"]*)"')
+def given_the_URL(step, url):
     world.response = world.browser.get(url)
 
 
@@ -34,13 +34,6 @@ def when_i_fill_in_field_with_id_group1_with_group2(step, field_id, value):
         text_field.clear()
         text_field.send_keys(value)
 
-
-@step('I fill in field with id "([^"]*)" with "([^"]*)"')
-def and_i_fill_in_field_with_id_group1_with_group2(step, field_id, value):
-    with AssertContextManager(step):
-        text_field = world.browser.find_element_by_id(field_id)
-        text_field.clear()
-        text_field.send_keys(value)
 
 
 @step('I submit the form')
@@ -101,7 +94,7 @@ def then_the_element_with_actual_date(step, element_class):
 def then_i_see_two_appoitments(step, num, element_class):
     with AssertContextManager(step):
         elements = world.browser.find_elements_by_class_name(element_class)
-        assert len(elements) > int(num)
+        assert len(elements) >= int(num)
 
 
 @step('I select the appointment with the title "([^"]*)"')
