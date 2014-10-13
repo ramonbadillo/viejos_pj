@@ -17,14 +17,14 @@ Scenario: New Appointment
 
 Scenario: Appointment details
   Given the URL "http://localhost:5000/appointments/2/"
-  Then I see that the element with class "appointment-detail" contains "El viejo se enoja si no llegan temprano"
+  Then I see that the element with class "appointment-detail" contains "test"
 
 Scenario: Empty Appointments
   Given the URL "http://localhost:5000/appointments/0/"
   Then I see that the title of the page contains "Not Found"
 
 Scenario: Edit a given appointment
-  Given the URL "http://localhost:5000/appointments/2/edit"
+  Given the URL "http://localhost:5000/appointments/1/edit"
   When I update the field with id "title" with "Viejos Appointment"
   And I submit the form
   Then I see that the element with class "appointment-detail" contains "Viejos Appointment"
