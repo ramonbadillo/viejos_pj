@@ -93,36 +93,36 @@ class Appointment(Base):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 if __name__ == "__main__":
-#    from datetime import timedelta
-#    from sqlalchemy import create_engine
-#    from sqlalchemy.orm import sessionmaker
-#
-#    engine = create_engine('sqlite:///sched.db', echo=True)
-#    Base.metadata.create_all(engine)
-#    Session = sessionmaker(bind=engine)
-#    session = Session()
-#
-##    Add user1
-#    user = User(name="User1", email="hola@adios.com")
-#    user._set_password("12345")
-#    session.add(user)
-#    session.commit()
-#
-#    now = datetime.now()
-#    appt = Appointment(
-#        title='New appointment', start=now,
-#        end=now + timedelta(seconds=1800),
-#        allday=False, location='the office', description='test', user_id=1)
-#
-#    session.add(appt)
-#    session.commit()
-#
-#    now = datetime.now()
-#    appt = Appointment(
-#        title='New appointment2', start=now,
-#        end=now + timedelta(seconds=1800),
-#        allday=False, location='the office', description='test', user_id=1)
-#
-#    session.add(appt)
-#    session.commit()
-#
+    #    from datetime import timedelta
+    #    from sqlalchemy import create_engine
+    #    from sqlalchemy.orm import sessionmaker
+    #
+    #    engine = create_engine('sqlite:///sched.db', echo=True)
+    #    Base.metadata.create_all(engine)
+    #    Session = sessionmaker(bind=engine)
+    #    session = Session()
+    #
+    # Add user1
+    #    user = User(name="User1", email="hola@adios.com")
+    #    user._set_password("12345")
+    #    session.add(user)
+    #    session.commit()
+    #
+    #    now = datetime.now()
+    #    appt = Appointment(
+    #        title='New appointment', start=now,
+    #        end=now + timedelta(seconds=1800),
+    #        allday=False, location='the office', description='test', user_id=1)
+    #
+    #    session.add(appt)
+    #    session.commit()
+    #
+    #    now = datetime.now()
+    #    appt = Appointment(
+    #        title='New appointment2', start=now,
+    #        end=now + timedelta(seconds=1800),
+    #        allday=False, location='the office', description='test', user_id=1)
+    #
+    #    session.add(appt)
+    #    session.commit()
+    #
