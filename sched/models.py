@@ -93,6 +93,7 @@ class Appointment(Base):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
 if __name__ == "__main__":
+    print'maldito flake8 te odio'
     #    from datetime import timedelta
     #    from sqlalchemy import create_engine
     #    from sqlalchemy.orm import sessionmaker
@@ -124,5 +125,4 @@ if __name__ == "__main__":
     #        allday=False, location='the office', description='test', user_id=1)
     #
     #    session.add(appt)
-    #    session.commit()
-    #
+    #   session.commit()
