@@ -153,9 +153,10 @@ class appTests(unittest.TestCase):
         response = self.appointmentT.post('/login/', data=dict(
             username='hola@adios.com', password='12345'),
             follow_redirects=True)
-        response = self.appointmentT.get('/appointments/1/')
+        response = self.appointmentT.get('/appointments/2/')
         self.assertEquals(response.status_code, 200)
-        assert "New Appointment" in response.data
+        assert "New appointment2" in response.data
+        assert "algo que no es" not in response.data
 
     def testFalseAppointment(self):
         response = self.appointmentT.post('/login/', data=dict(
@@ -211,7 +212,7 @@ class appTests(unittest.TestCase):
         self.assertEquals(response.status_code, 405)
         assert "Not Allowed" in response.data
 
-        response = self.appointmentT.delete('/appointments/1/delete/',
+        response = self.appointmentT.delete('/appointments/3/delete/',
                                             follow_redirects=True)
         self.assertEquals(response.status_code, 200)
         self.assertEqual(json.loads(response.data), {'status': 'OK'})
