@@ -9,7 +9,6 @@ before_script:
 script:
   - coverage run --omit="site-packages" unitTest.py
   - nosetests --with-doctest -s sched
-  - python manage.py runserver
-  - lettuce tests
+  - python manage.py runserver & lettuce tests
 after_script:
   - coverage report -m
