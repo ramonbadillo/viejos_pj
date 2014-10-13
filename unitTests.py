@@ -10,7 +10,7 @@ from jinja2 import Environment
 
 class filterTests(unittest.TestCase):
 
-    def datetimeEmpty(self):
+    def testdatetimeEmpty(self):
         result = filters.do_datetime(None)
         self.assertEqual(result, '')
 
@@ -229,7 +229,6 @@ class appTests(unittest.TestCase):
         response = self.appointmentT.get('/')
         self.assertEquals(response.status_code, 200)
         assert "Appointment scheduler" in response.data
-
 
 if __name__ == '__main__':
     unittest.main()
