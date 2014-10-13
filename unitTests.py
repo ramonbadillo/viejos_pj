@@ -14,12 +14,12 @@ class filterTests(unittest.TestCase):
 		self.assertEqual(result, '')
 
 	def datetimeWithoutHour(self):
-		date = date(2014, 01, 23)
+		date = date(2014, 1, 23)
 		result = filters.do_datetime(date)
 		self.assertEqual(result, '2014-01-23 - Thursday')
 
 	def datetimeWithHour(self):
-		date = datetime(2014, 01, 23, 9, 00, 00)
+		date = datetime(2014, 1, 23, 9, 00, 00)
 		result = filters.do_datetime(date)
 		self.assertEqual((result, '2014-01-23 - Thursday at 9:00am'))
 
@@ -28,7 +28,7 @@ class filterTests(unittest.TestCase):
 		self.assertEqual(result, '')
 
 	def dateNotEmpty(self):
-		date = datetime(2014, 01, 23, 9, 00, 00)
+		date = datetime(2014, 1, 23, 9, 00, 00)
 		result = filters.do_date(date)
 		self.assertEqual(result, '2014-01-23 - Thursday')
 
@@ -64,21 +64,21 @@ class testForm(unittest.TestCase):
 		form = forms.AppointmentForm()
 		self.assertEqual(
 			'<input id="title" name="title" type="text" value="">', str(form.title))
-			self.assertEqual(
+		self.assertEqual(
 			'<input id="start" name="start" type="text" value="">', str(form.start))
-			self.assertEqual(
+		self.assertEqual(
 			'<input id="end" name="end" type="text" value="">', str(form.end))
-			self.assertEqual(
+		self.assertEqual(
 			'<input id="allday" name="allday" type="checkbox" value="y">', str(form.allday))
-			self.assertEqual(
+		self.assertEqual(
 			'<input id="location" name="location" type="text" value="">', str(form.location))
-			self.assertEqual(
+		self.assertEqual(
 			'<textarea id="description" name="description"></textarea>', str(form.description))
 	def test_form_Login(self):
 		form = forms.LoginForm()
 		self.assertEqual(
 			'<input id="username" name="username" type="text" value="">', str(form.username))
-			self.assertEqual(
+		self.assertEqual(
 			'<input id="password" name="password" type="password" value="">', str(form.password))
 
 
