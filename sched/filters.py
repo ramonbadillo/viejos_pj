@@ -17,7 +17,7 @@ def do_datetime(dt, format=None):
     >>> do_datetime(None)
     ''
     >>> from datetime import datetime
-    >>> do_datetime(datetime(2014, 01, 23, 09, 00, 00))
+    >>> do_datetime(datetime(2014, 01, 23, 9, 00, 00))
     '2014-01-23 - Thursday at 9:00am'
     """
 
@@ -49,7 +49,7 @@ def do_date(dt, format='%Y-%m-%d - %A'):
     >>> do_date(None)
     ''
     >>> from datetime import datetime
-    >>> do_date(datetime(2014, 01, 23, 09, 00, 00))
+    >>> do_date(datetime(2014, 01, 23, 9, 00, 00))
     '2014-01-23 - Thursday'
     """
 
