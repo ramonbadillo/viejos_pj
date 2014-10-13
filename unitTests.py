@@ -82,5 +82,5 @@ class testForm(unittest.TestCase):
 			'<input id="password" name="password" type="password" value="">', str(form.password))
 
 
-if __name == '__main__':
+if __name__ == '__main__':
 	unittest.main()
