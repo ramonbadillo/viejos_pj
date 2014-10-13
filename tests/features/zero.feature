@@ -24,7 +24,7 @@ Scenario: Empty Appointments
   Then I see that the title of the page contains "Not Found"
 
 Scenario: Edit a given appointment
-  Given the URL "http://localhost:5000/appointments/1/edit"
+  Given the URL "http://localhost:5000/appointments/3/edit"
   When I update the field with id "title" with "Viejos Appointment"
   And I submit the form
   Then I see that the element with class "appointment-detail" contains "Viejos Appointment"
